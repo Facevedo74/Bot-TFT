@@ -170,7 +170,7 @@ namespace Bot
                                Thread.Sleep(1000);
                                 //  auto.MouseClick("LEFT", 617, 428, 1, -1);
                                 // Thread.Sleep(6000);
-                                auto.MouseClick("LEFT", 820, 972, 1, -1);
+                                auto.MouseClick("LEFT", 830, 935, 1, -1);
                             }
                             else
                             {
@@ -194,7 +194,7 @@ namespace Bot
                                     //Thread.Sleep(1000);
                                     //auto.MouseClick("LEFT", 617, 428, 1, -1);
                                     Thread.Sleep(6000);
-                                    auto.MouseClick("LEFT", 820, 972, 1, -1);
+                                    auto.MouseClick("LEFT", 830, 935, 1, -1);
                                 }
                                 else
                                 {
@@ -213,7 +213,7 @@ namespace Bot
                                         //Thread.Sleep(1000);
                                         //auto.MouseClick("LEFT", 617, 428, 1, -1);
                                         Thread.Sleep(6000);
-                                        auto.MouseClick("LEFT", 820, 972, 1, -1);
+                                        auto.MouseClick("LEFT", 830, 935, 1, -1);
 
                                     }
                                     else
@@ -227,8 +227,8 @@ namespace Bot
                                             Console.WriteLine(fecha +" VolverAJugar ");
                                             //auto.MouseClick("LEFT", 567, 371, 1, -1);
                                             //Thread.Sleep(1000);
-                                            Cursor.Position = new Point(820, 972);
-                                            auto.MouseClick("LEFT", 820, 972, 1, -1);
+                                            Cursor.Position = new Point(830, 935);
+                                            auto.MouseClick("LEFT", 830, 935, 1, -1);
 
                                         }
                                         else
@@ -320,6 +320,7 @@ namespace Bot
                 {
                     Console.WriteLine(fecha + " Hola Soy un error :'v o eso me decia mi mama :c");
                     Console.WriteLine(fecha + " Fuera bromas tu resolucion no es la correcta lee las instrucciones");
+                    Console.WriteLine(exception);
                 }
                 //Thread.Sleep(1500);
             }
