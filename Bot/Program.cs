@@ -52,8 +52,8 @@ namespace Bot
                     if (matchings[0].Similarity > 0.94f)
                     {
                         Console.WriteLine(fecha + " Buscando Partida");
-                        Cursor.Position = new Point(850, 975);
-                        auto.MouseClick("LEFT", 850, 975, 1, -1);
+                        Cursor.Position = new Point(850, 925);
+                        auto.MouseClick("LEFT", 850, 925, 1, -1);
                         Thread.Sleep(2000);
                     }
                     else
@@ -100,7 +100,7 @@ namespace Bot
                                 Thread.Sleep(60000);
 
                                 //Subimos de Nivel
-                                for (int h=0; h<12; h++) {
+                                for (int h=0; h<10; h++) {
                                 //for (int h=0; h<14; h++) { 
                                 fecha = DateTime.Now.ToString("hh:mm:ss");
                                 Console.WriteLine(fecha + " Subiendo de Nivel, Iteracion:" + h);                               
@@ -167,7 +167,7 @@ namespace Bot
                                 }
                                 Thread.Sleep(5000);
                                // auto.MouseClick("LEFT", 617, 428, 1, -1);
-                               Thread.Sleep(1000);
+                                Thread.Sleep(6000);
                                 //  auto.MouseClick("LEFT", 617, 428, 1, -1);
                                 // Thread.Sleep(6000);
                                 auto.MouseClick("LEFT", 830, 935, 1, -1);
@@ -235,7 +235,7 @@ namespace Bot
                                         {
                                             //En caso de ser eliminados sin poder tirar surrender, precionar boton salir
                                             matchings = tm.ProcessImage(Salir, Captura);
-                                            if (matchings[0].Similarity > 0.91f)
+                                            if (matchings[0].Similarity > 0.90f)
                                             {
                                                 Console.WriteLine(fecha + " Salir");
                                                 Cursor.Position = new Point(840, 525);
