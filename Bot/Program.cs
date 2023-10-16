@@ -1,6 +1,7 @@
 ﻿using AForge.Imaging;
 using AutoItX3Lib;
 using System;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.CompilerServices;
@@ -17,22 +18,31 @@ namespace Bot
         static string status = "waiting";
         static string date = DateTime.Now.ToString("hh:mm:ss") + ": ";
         static AutoItX3 auto = new AutoItX3();
-
+        static int resolution = 0; 
+        static string multiFarm = "N";
         static void Main(string[] args)
         {
-            ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0);
-            Bitmap BuscarPartida = new Bitmap("1_BuscarPartida.jpg");
-            Bitmap PartidaEncontrada = new Bitmap("2_PartidaEncontrada.jpg");
-            Bitmap PartidaIniciada = new Bitmap("3_PartidaIniciada.jpg");
-            Bitmap ValidarPartidaIniciada = new Bitmap("11_ValidarPartidaIniciada.jpg");
-            Bitmap Rendirse = new Bitmap("4_Rendirse.jpg");
-            Bitmap ConfirmarRendirse = new Bitmap("5_ConfirmarRendirse.jpg");
-            Bitmap VolverAJugar = new Bitmap("6_VolverAJugar.jpg");
-            Bitmap VolverAJugar_Llave = new Bitmap("6_VolverAJugar_Llave.jpg");
-            Bitmap ReintentandoSurrender = new Bitmap("7_ReintentandoSurrender.jpg");
-            Bitmap Salir = new Bitmap("8_Salir.jpg");
-            Bitmap ErrorConexion = new Bitmap("9_ErrorConexion.jpg");
-            Bitmap Reconectar = new Bitmap("10_Reconectar.jpg");
+            Console.WriteLine("Farmeo Multiple: Si (Y) - No (N)");
+            multiFarm = Console.ReadLine();
+
+            checkScreenResolution();
+
+            ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.95f);
+            //Bitmap BuscarPartida = new Bitmap("1_BuscarPartida_" + resolution + "_" + multiFarm.ToUpper() + ".jpg");
+            Bitmap BuscarPartida = new Bitmap("1_BuscarPartida_x.jpg");
+            Bitmap PartidaEncontrada = new Bitmap("2_PartidaEncontrada_" + resolution + ".jpg");
+            Bitmap PartidaIniciada = new Bitmap("3_PartidaIniciada_" + resolution + ".jpg");
+            Bitmap ValidarPartidaIniciada = new Bitmap("4_ValidarPartidaIniciada_" + resolution + ".jpg");
+            Bitmap VolverAJugar = new Bitmap("5_VolverAJugar_" + resolution + ".jpg");
+            Bitmap VolverAJugar_Llave = new Bitmap("6_VolverAJugar_Llave_" + resolution + ".jpg");
+
+
+            //Bitmap Rendirse = new Bitmap("4_Rendirse" + resolution + ".jpg");
+            //Bitmap ConfirmarRendirse = new Bitmap("5_ConfirmarRendirse" + resolution + ".jpg");
+            //Bitmap ReintentandoSurrender = new Bitmap("7_ReintentandoSurrender" + resolution + ".jpg");
+            //Bitmap Salir = new Bitmap("8_Salir" + resolution + ".jpg");
+            //Bitmap ErrorConexion = new Bitmap("9_ErrorConexion" + resolution + ".jpg");
+            //Bitmap Reconectar = new Bitmap("10_Reconectar" + resolution + ".jpg");
 
             while (!stopLoop)
             {
@@ -44,27 +54,28 @@ namespace Bot
                     ForceStarGame();
                     
                     Bitmap Captura = captureScreen();
-                    TemplateMatch[] matchings = tm.ProcessImage(BuscarPartida, Captura);
 
-                    if (status == "waiting" && tm.ProcessImage(BuscarPartida, Captura)[0].Similarity > 0.94f)
-                        searchGame();
+                        TemplateMatch[] matchings = tm.ProcessImage(BuscarPartida , Captura);
 
-                    if (tm.ProcessImage(PartidaEncontrada, Captura)[0].Similarity > 0.95f)
-                        gameFound();
+                        if (status == "waiting" && tm.ProcessImage(BuscarPartida, Captura).Length > 0)
+                            searchGame();
 
-                    if (tm.ProcessImage(VolverAJugar_Llave, Captura)[0].Similarity > 0.95f)
-                        playAgain();
+                        //if (tm.ProcessImage(Captura, PartidaEncontrada)[0].Similarity > 0.95f)
+                        //    gameFound();
 
-                    if (tm.ProcessImage(VolverAJugar, Captura)[0].Similarity > 0.95f)
-                        playAgain();
+                        //if (tm.ProcessImage(Captura, VolverAJugar_Llave)[0].Similarity > 0.95f)
+                        //    playAgain();
 
-                    if (tm.ProcessImage(PartidaIniciada, Captura)[0].Similarity > 0.95f)
-                        startGame();
+                        //if (tm.ProcessImage(Captura, VolverAJugar)[0].Similarity > 0.95f)
+                        //    playAgain();
 
-                    if (tm.ProcessImage(ValidarPartidaIniciada, Captura)[0].Similarity > 0.93f)
-                        startGame();
+                        //if (tm.ProcessImage(Captura, PartidaIniciada)[0].Similarity > 0.95f)
+                        //    startGame();
 
-                    matchings = waiting( matchings);
+                        //if (tm.ProcessImage(Captura, ValidarPartidaIniciada)[0].Similarity > 0.93f)
+                        //    startGame();
+
+                        matchings = waiting(matchings);  
 
                 }
                 catch (System.ComponentModel.Win32Exception exception)
@@ -228,6 +239,12 @@ namespace Bot
                     startGame();
                 }
             }
+        }
+
+        static void checkScreenResolution()
+        {
+            Bitmap Captura = captureScreen();
+            resolution = Captura.Height;
         }
     }
 }
